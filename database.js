@@ -6,6 +6,7 @@
 
 const {MongoClient, ObjectID} = require('mongodb');
 const connectionURL = process.env.connection_URL;
+console.log(connectionURL);
 const databaseName = 'task-manager';
 MongoClient.connect(
   connectionURL,
@@ -15,24 +16,19 @@ MongoClient.connect(
       return console.log('unable to connect mongodb database');
     }
     const db = client.db(databaseName);
-    db.collection('users')
-      .updateOne(
-        {_id: new ObjectID('6051d59e1cacdd0b50d558a3')},
-        {
-          // $set: {
-          //   name: 'AADII',
-          // },
-          $inc: {
-            age: -1,
-          },
-        }
-      )
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log('Error!! ', error);
-      });
+    db.collection('users').updateMany(
+      [
+        {_id: new ObjectID('6051d83a4ac0be089cda94d0')},
+        {_id: new ObjectID('6051dbddeba63429b4b0e6e9')},
+        {_id: new ObjectID('605355db80503f1df0907d75')},
+      ],
+      {
+        $set: {
+          name: 'aditi',
+          description: 'dinner',
+        },
+      }
+    );
   }
 );
 
@@ -99,4 +95,24 @@ MongoClient.connect(
 //   .find({isCompleted: false})
 //   .toArray((error, user) => {
 //     console.log(user);
+//   });
+
+// updateOne =================================================
+// db.collection('users')
+//   .updateOne(
+//     {_id: new ObjectID('6051d59e1cacdd0b50d558a3')},
+//     {
+//       // $set: {
+//       //   name: 'AADII',
+//       // },
+//       $inc: {
+//         age: -1,
+//       },
+//     }
+//   )
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log('Error!! ', error);
 //   });
